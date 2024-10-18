@@ -1,4 +1,7 @@
 import tkinter
+import sqlite3
+# con=sqlite3.connect("tkinter_data.db")
+# con.execute("create table sample(uname text,password text)")
 win=tkinter.Tk()
 win.title('login')
 win.configure(bg="red")
@@ -13,6 +16,12 @@ def reg_form():
     win1.configure(bg="gold")
     win1.minsize(400,400)
     win1.maxsize(500,500)
+
+    def reg():
+        con=sqlite3.connect("tkinter_data.db")
+        con.execute("insert into sample(uname,password)values(?,?)",(e3.get(),e4.get()))
+        con.commit()
+        win1.destroy()
 
     l3=tkinter.Label(win1,text="register",bg='gold',fg="black")
     l3.place(x=150,y=20)
@@ -31,7 +40,7 @@ def reg_form():
     
 
 
-    btn3=tkinter.Button(win1,text="Submmit",bg="gray",activebackground='red',activeforeground='black',padx=10,pady=8,command="save")
+    btn3=tkinter.Button(win1,text="Submmit",bg="gray",activebackground='red',activeforeground='black',padx=10,pady=8,command=reg)
     btn3.place(x=200,y=120)
     win1.mainloop()
 
